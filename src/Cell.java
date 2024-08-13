@@ -3,18 +3,16 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public class Cell {
-    // initialization of feilds
-    int x;
-    int y;
-    static int size = 35; //cell size
+    static int size = 35;
+    private int x, y;
 
-    public Cell(int inX, int inY) { //create cell
-        x = inX;
-        y = inY;
+    public Cell(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public void paint(Graphics g, Point mousePos) { 
-        if (contains(mousePos)) {
+    public void paint(Graphics g, Point mousePos) {
+        if (mousePos != null && contains(mousePos)) {
             g.setColor(Color.GRAY);
         } else {
             g.setColor(Color.WHITE);
@@ -24,12 +22,10 @@ public class Cell {
         g.drawRect(x, y, size, size);
     }
 
-    //method to check if the cell contains the pointer
-    public boolean contains(Point p) { 
-        if (p != null) {
-            return x < p.x && x + size > p.x && y < p.y && y + size > p.y;
-        } else {
+    private boolean contains(Point p) {
+        if (p == null) {
             return false;
         }
+        return p.x >= x && p.x < x + size && p.y >= y && p.y < y + size;
     }
 }
