@@ -1,19 +1,16 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 
-public class Cell {
-    // initialization of feilds
-    int x;
-    int y;
-    static int size = 35; //cell size
+public class Cell extends Rectangle {
+    static int size = 35;
 
-    public Cell(int inX, int inY) { //create cell
-        x = inX;
-        y = inY;
+    public Cell(int x, int y) {
+        super(x, y, size, size);
     }
 
-    public void paint(Graphics g, Point mousePos) { 
+    public void paint(Graphics g, Point mousePos) {
         if (contains(mousePos)) {
             g.setColor(Color.GRAY);
         } else {
@@ -24,10 +21,9 @@ public class Cell {
         g.drawRect(x, y, size, size);
     }
 
-    //method to check if the cell contains the pointer
-    public boolean contains(Point p) { 
+    public boolean contains(Point p) {
         if (p != null) {
-            return x < p.x && x + size > p.x && y < p.y && y + size > p.y;
+            return super.contains(p);
         } else {
             return false;
         }
